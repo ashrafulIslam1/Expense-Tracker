@@ -18,13 +18,6 @@ namespace Expense_Tracker.Services
             var model = new expenseCategory
             {
                 categoryName = viewModel.categoryName,
-
-                //houseRent = viewModel.houseRent,
-                //waterBill = viewModel.waterBill,
-                //electricityBill = viewModel.electricityBill,
-                //groceriesCost = viewModel.groceriesCost,
-                //uberBill = viewModel.uberBill,
-                //medicationCost = viewModel.medicationCost,
             };
             _dbContext.Categories.Add(model);
             _dbContext.SaveChanges();
@@ -38,13 +31,6 @@ namespace Expense_Tracker.Services
                 throw new Exception();
 
             model.categoryName = viewModel.categoryName;
-
-            //model.houseRent = viewModel.houseRent;
-            //model.waterBill = viewModel.waterBill;
-            //model.electricityBill = viewModel.electricityBill;
-            //model.groceriesCost = viewModel.groceriesCost;
-            //model.uberBill = viewModel.uberBill;
-            //model.medicationCost = viewModel.medicationCost;
 
             _dbContext.Categories.Update(model);
             _dbContext.SaveChanges();
@@ -68,12 +54,6 @@ namespace Expense_Tracker.Services
                         {
                             categoryID = c.categoryID,
                             categoryName = c.categoryName,
-                            //houseRent = c.houseRent,
-                            //waterBill = c.waterBill,
-                            //electricityBill = c.electricityBill,
-                            //groceriesCost = c.groceriesCost,
-                            //uberBill = c.uberBill,
-                            //medicationCost = c.medicationCost,
                         }).AsQueryable();
 
             return query.ToList();
@@ -87,13 +67,6 @@ namespace Expense_Tracker.Services
                          {
                              categoryID = c.categoryID,
                              categoryName= c.categoryName,
-
-                             //houseRent = c.houseRent,
-                             //waterBill = c.waterBill,
-                             //electricityBill = c.electricityBill,
-                             //groceriesCost = c.groceriesCost,
-                             //uberBill = c.uberBill,
-                             //medicationCost = c.medicationCost,
                          }).SingleOrDefault();
 
             return query;
