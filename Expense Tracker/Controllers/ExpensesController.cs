@@ -15,9 +15,10 @@ namespace Expense_Tracker.Controllers
             _expenseCategoryService = expenseCategoryService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(DateTime? fromDate, DateTime? toDate)
         {
-            return View(_expensesService.GetAll());
+
+            return View(_expensesService.GetAll(fromDate, toDate));
         }
 
         [HttpGet]

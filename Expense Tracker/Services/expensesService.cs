@@ -52,7 +52,7 @@ namespace Expense_Tracker.Services
             _dbContext.SaveChanges();
         }
 
-        public List<expensesViewModel> GetAll()
+        public List<expensesViewModel> GetAll(DateTime? fromDate, DateTime? toDate)
         {
             var query = (from e in _dbContext.Expenses
                          join c in _dbContext.Categories on e.categoryId equals c.categoryID
@@ -63,6 +63,15 @@ namespace Expense_Tracker.Services
                              Amount = e.Amount,
                              Date = e.Date,
                          }).AsQueryable();
+
+            if(fromDate.HasValue && toDate == null)
+            {
+                query = query.Where(e => e.Date == fromDate.Value);
+            }
+            else if (fromDate.HasValue && toDate.HasValue)
+            {
+                query = query.Where(e => e.Date >= fromDate && e.Date <= toDate);
+            }
 
             return query.ToList();
         }
