@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Expense_Tracker.Services;
 using Expense_Tracker.ViewModels;
+using Expense_Tracker.Data;
 
 namespace Expense_Tracker.Controllers
 {
     public class expenseCategoryController : Controller
     {
+        private ApplicationDbContext _dbContext;
         private expenseCategoryService _expenseCategoryService;
-        public expenseCategoryController(expenseCategoryService expenseCategoryService)
+        public expenseCategoryController(expenseCategoryService expenseCategoryService, ApplicationDbContext dbContext)
         {
             _expenseCategoryService = expenseCategoryService;
+            _dbContext = dbContext;
         }
         public IActionResult Index()
         {
@@ -31,6 +34,12 @@ namespace Expense_Tracker.Controllers
                 return RedirectToAction("Index");
             }
             return View(viewModel);
+        }
+
+        // Here I am checking the duplicate entry to the category, unique category name validation
+        public JsonResult IsCategoryNameExist(string checkName)
+        {
+            return Json(_dbContext.Categories.Any(x => x.categoryName == checkName));
         }
 
         public IActionResult Update(int id)
